@@ -1,0 +1,173 @@
+// @import './common/var.scss';
+// 按钮的颜色
+$--button-default-color: #f5f5f5;
+$--button-primary-color: $--primary-color;
+$--button-info-color: $--info-color;
+$--button-success-color: $--success-color;
+$--button-warning-color: $--warning-color;
+$--button-danger-color: $--danger-color;
+$--button-disabled-color: $--disabled-color;
+$--button-disabled-text-color: $--disabled-text-color;
+
+// 按钮高度
+$--button-mini-height: 20px;
+$--button-small-height: 28px;
+$--button-medium-height: 36px;
+$--button-large-height: 44px;
+
+$--button-border-radius: $--border-radius;
+
+// circle的边框圆角
+$--button-mini-circle-border-radius: 10px;
+$--button-small-circle-border-radius: 15px;
+$--button-medium-circle-border-radius: 20px;
+$--button-large-circle-border-radius: 25px;
+
+// 按钮padding
+$--button-mini-padding: 0 9px;
+$--button-small-padding: 0 11px;
+$--button-medium-padding: 0 15px;
+$--button-large-padding: 0 22px;
+$--button-round-padding: 10px;
+
+// 字体大小
+$--button-mini-font-size: $--mini-font-size;
+$--button-small-font-size: $--small-font-size;
+$--button-medium-font-size: $--medium-font-size;
+$--button-large-font-size: $--large-font-size;
+
+// 阴影
+$--shadow-key-umbra-opacity: rgba(0, 0, 0, .2);
+$--shadow-key-penumbra-opacity: rgba(0, 0, 0, .14);
+$--shadow-key-ambient-opacity: rgba(0, 0, 0, .12);
+
+.h-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: $--button-medium-height;
+    padding: $--button-medium-padding;
+    border: 0;
+    border-radius: $--button-border-radius;
+    outline: 0;
+    font-size: $--button-medium-font-size;
+    background-color: $--button-default-color;
+    cursor: pointer;
+    user-select: none;
+    will-change: box-shadow;
+    transition: box-shadow .2s, background-color 0.25s;
+    box-shadow: 0 3px 1px -2px $--shadow-key-umbra-opacity, 0 2px 2px 0 $--shadow-key-penumbra-opacity, 0 1px 5px 0 $--shadow-key-ambient-opacity;
+    line-height: 1;
+
+    &:active {
+        box-shadow: 0 3px 5px -1px $--shadow-key-umbra-opacity, 0 5px 8px 0 $--shadow-key-penumbra-opacity,
+            0 1px 14px 0 $--shadow-key-ambient-opacity;
+    }
+
+    $heights: (mini: $--button-mini-height, small: $--button-small-height, medium: $--button-medium-height, large: $--button-large-height);
+    $paddings: (mini: $--button-mini-padding, small: $--button-small-padding, medium: $--button-medium-padding, large: $--button-large-padding);
+    $font-sizes: (mini: $--button-mini-font-size, small: $--button-small-font-size, medium: $--button-medium-font-size, large: $--button-large-font-size);
+    $border-radiuses: (mini: $--button-mini-circle-border-radius, small: $--button-small-circle-border-radius, medium: $--button-medium-circle-border-radius, large: $--button-large-circle-border-radius);
+
+    @each $t in $types {
+        $color: map-get($colors, $t);
+
+        &--#{$t} {
+            @if $t==default {
+                color: #000;
+            }
+
+            @else {
+                color: #fff;
+            }
+
+            background-color: $color;
+
+            @each $s in $sizes {
+                $height: map-get($heights, $s);
+                $padding: map-get($paddings, $s);
+                $font-size: map-get($font-sizes, $s);
+                $border-radius: map-get($border-radiuses, $s);
+
+                &.is-#{$s} {
+                    height: $height;
+                    padding: $padding;
+                    font-size: $font-size;
+
+                    &.is-round {
+                        height: auto;
+                        padding: $--button-round-padding;
+                        border-radius: 50%;
+                    }
+
+                    &.is-circle {
+                        height: $height;
+                        padding: $padding;
+                        border-radius: $border-radius;
+                    }
+                }
+            }
+
+            &.is-block {
+                display: flex;
+                width: 100%;
+            }
+
+            &.is-text {
+                color: $color;
+                background-color: transparent;
+                box-shadow: none;
+
+                &.is-disabled {
+                    border: 0;
+                    background-color: transparent;
+                }
+            }
+
+            &.is-solid {
+                border: 1px solid $color;
+                color: $color;
+
+                @if $t==default {
+                    border-color: $--button-disabled-text-color;
+                    color: #000;
+                }
+
+                background-color: #fff;
+                box-shadow: none;
+
+                &.is-disabled {
+                    border: 1px solid $--button-disabled-text-color;
+                    background-color: transparent;
+                }
+            }
+
+            &.is-dashed {
+                border: 1px dashed $color;
+                color: $color;
+
+                @if $t==default {
+                    border-color: $--button-disabled-text-color;
+                    color: #000;
+                }
+
+                background-color: #fff;
+                box-shadow: none;
+
+                &.is-disabled {
+                    border: 1px dashed $--button-disabled-text-color;
+                    background-color: transparent;
+                }
+            }
+
+            &.is-disabled {
+                color: $--button-disabled-text-color;
+                background-color: $--button-disabled-color;
+                box-shadow: none;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+}

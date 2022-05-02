@@ -10,6 +10,7 @@
         fill={['#f61689', '#3d1e44', '#415294', '#3dda87']}
         strokeLinecap="butt"
     />
+    <Icon loading />
 </main>
 
 <style>

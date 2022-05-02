@@ -1,0 +1,9 @@
+.h-icon {
+    display: inline-flex;
+    height: fit-content;
+    overflow: hidden;
+
+    &.is-loading {
+        @include rotate-360;
+    }
+}
